@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express(),
     bodyParser = require('body-parser');
 
@@ -11,16 +12,42 @@ const api_key = process.env.API_KEY;
 const api_url = process.env.API_URL;
 
 
-
+    app.use(cors());
     app.use(bodyParser.json());
 
     app.get('/api/weather', (req, res) => {
 
         const city = req.query.city;
-        const weather = get_weather(city);
 
-        console.log(weather);
-        res.json(weather);
+
+            url = encodeURI(api_url + "?q=" + city + "&units=metric&APPID=" + api_key);
+
+
+         fetch(
+            url
+        )
+            .then((response) => response.json())
+            .then((data) => {
+
+
+                const direction = degree_converter(data.wind.deg);
+            
+
+                 res.json({
+                     'forecast': data.weather[0].description,
+                     'temperature': data.main.temp,
+                     'humidity' : data.main.humidity,
+                     'wind': data.wind.speed,
+                     'location': data.name,
+                     'direction': direction
+                 });
+
+
+
+            })
+            .catch(err => console.log(err));
+
+
 
     });
 
