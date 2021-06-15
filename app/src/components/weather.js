@@ -1,18 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useParams } from 'react-router-dom';
 
 const Weather = ()  => {
-
-    let [city, setCity] = useState('Copenhagen');
+    const { urlCity } = useParams();
+    console.log(urlCity);
+    let [city, setCity] = useState(urlCity || 'Copenhagen');
     const [responseObj, setResponseObj] = useState({});
     let [error, setError] = useState(false);
     let [loading, setLoading] = useState(false);
 
+    useEffect(() => {
+        if(responseObj.direction === undefined)
+        get_weather();
+    }, []);
 
-    function get_weather(e) {
-    e.preventDefault();
+
+    function get_weather_from_form (e) {
+        e.preventDefault();
+        get_weather();
+    }
+
+    function get_weather() {
+
+
         if (city.length === 0) {
-            return setError(true);
+            city = 'Copenhagen'
         }
 
         setError(false);
@@ -62,7 +75,7 @@ const Weather = ()  => {
                         <li className="list-group-item">Humidity: <b>{responseObj.humidity}</b></li>
                         <li className="list-group-item">Wind: <b>{responseObj.wind} m/s {responseObj.direction}</b></li>
                         <li className="list-group-item">
-                            <form onSubmit={get_weather} className="form-inline">
+                            <form  onSubmit={get_weather_from_form} className="form-inline">
                                 <div className="form-group">
                                     <input type="text" className="form-control" id="city" placeholder="City"
                                            value={city}
@@ -78,6 +91,8 @@ const Weather = ()  => {
         </div>
 
     )
+
+
 
 }
 

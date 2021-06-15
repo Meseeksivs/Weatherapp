@@ -1,12 +1,21 @@
 import './App.css';
 import Weather from "./components/weather";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-            <Weather />
+          <Router>
+              <Switch>
+                  <Route exact path='/:city' component={Weather} />
+                  <Route>
+                      <Weather />
+                  </Route>
+              </Switch>
+          </Router>
+
       </header>
     </div>
   );
