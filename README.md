@@ -12,4 +12,14 @@ Start a new terminal and hop into the app folder
 
 run `npm start`
 
-Got to http://localhost:3000
+Go to http://localhost:3000
+
+#unit test
+
+Hop into the api folder
+
+`cd api`
+
+Run api test
+
+`npm test`
