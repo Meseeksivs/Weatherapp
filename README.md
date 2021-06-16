@@ -27,3 +27,8 @@ Hop into the api folder
 Run api test
 
 `npm test`
+
+#noscript
+
+Seems I have backed myself into a corner. 
+Since the frontend is as a seperate instance, I cannot force the backend to display content in Noscript tags
