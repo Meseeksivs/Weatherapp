@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Weather = ()  => {
-    const { urlCity } = useParams();
+
+    const search = useLocation().search;
+    const urlCity = new URLSearchParams(search).get('city');
     console.log(urlCity);
     let [city, setCity] = useState(urlCity || 'Copenhagen');
     const [responseObj, setResponseObj] = useState({});
@@ -40,7 +42,7 @@ const Weather = ()  => {
             .then(response => response.json())
             .then(response => {
 
-
+                window.history.pushState( '','',`?city=${uriEncodedCity}`);
 
                 setResponseObj(response);
 

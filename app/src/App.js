@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
           <Router>
               <Switch>
-                  <Route exact path='/:city' component={Weather} />
+                  <Route exact path='/' component={Weather} />
                   <Route>
                       <Weather />
                   </Route>
